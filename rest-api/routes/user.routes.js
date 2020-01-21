@@ -3,12 +3,12 @@ const app = express();
 const userRoute = express.Router();
 
 // User model
-let User = require('../models/Users');
+let User = require('../models/User');
 
 
 // Get All Users
 userRoute.route('/users').get((req, res) => {
-  User.find((error, data) => {
+  User.find({},(error, data) => {
     if (error) {
       return next(error)
     } else {

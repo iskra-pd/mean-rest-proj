@@ -3,20 +3,20 @@ const Schema = mongoose.Schema;
 
 // Define collection and schema
 let User = new Schema({
-   name: {
-      type: String
-   },
-   email: {
-      type: String
-   },
    username: {
       type: String
    },
    password: {
       type: String
+   },
+   email: {
+      type: String
+   },
+   name: {
+      type: String
    }
 }, {
-   collection: 'users'
+   collection: 'users_db'
 })
 
 module.exports = mongoose.model('User', User)

@@ -26,9 +26,8 @@ app.use(bodyParser.urlencoded({
    extended: false
 }));
 app.use(cors()); 
-app.use(express.static(path.join(__dirname, 'dist/mean-rest-proj')));
-app.use('/', express.static(path.join(__dirname, 'dist/mean-rest-proj')));
-app.use('/api', userRoute)
+//app.use(express.static(path.join(__dirname, 'src/app')));
+app.use('/api', userRoute);
 
 // Create port
 const port = process.env.PORT || 3000;
@@ -38,7 +37,7 @@ const server = app.listen(port, () => {
 
 // Find 404 and hand over to error handler
 app.use((req, res, next) => {
-   next(createError(404,'Not Found'));
+   next(); //createError(404,'Not Found')
 });
 
 // error handler
