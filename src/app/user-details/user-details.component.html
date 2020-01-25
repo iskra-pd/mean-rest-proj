@@ -1,1 +1,29 @@
-<p>user-details works!</p>
+<span class="edit" [routerLink]="['/users']">
+        <button type="button" class="btn btn-info">Users List</button>
+    </span>
+<div class="row justify-content-center">
+   <div class="col-md-4">
+     <!-- form -->
+     <div class="card card-outline-secondary">
+       <div class="card-header">
+         <h3 class="mb-0">User Details</h3>
+       </div>
+       <div class="card-body">
+         <form [formGroup]="userForm">
+           <div class="form-group">
+             <label for="inputName">Name</label>
+             <input class="form-control" type="text" formControlName="name">
+           </div>
+           <div class="form-group">
+             <label for="inputEmail3">Email</label>
+             <input class="form-control" type="text" formControlName="email">
+           </div>
+           <div class="form-group">
+             <label for="inputVerify3">Username</label>
+             <input class="form-control" type="text" formControlName="username">
+           </div>
+         </form>
+       </div>
+     </div><!-- form  -->
+   </div>
+ </div>

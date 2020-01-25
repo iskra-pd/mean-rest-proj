@@ -9,7 +9,7 @@ import { ApiService } from './../service/api.service';
 export class UsersListComponent implements OnInit {
 
 	
-	User: any =[];
+	Users: any =[];
 	
   constructor(private apiService: ApiService) {
 	this.readUsers();
@@ -20,7 +20,9 @@ export class UsersListComponent implements OnInit {
   
   readUsers(){
     this.apiService.getUsers().subscribe((data) => {
-     this.User = data;
+		this.Users = data.users[0];
+		
+		 console.log('Res data:',this.Users[0])
     })    
   }
 

@@ -4,7 +4,9 @@ let express = require('express'),
    cors = require('cors'),
    bodyParser = require('body-parser'),
    dbConfig = require('./data/db'),
-   createError = require('http-errors');
+   createError = require('http-errors'),
+   jwt = require('jsonwebtoken'),
+   passport = require('passport');
 
 // Connecting with mongo db
 mongoose.Promise = global.Promise;
@@ -18,14 +20,16 @@ mongoose.connect(dbConfig.db, {
    }
 )
 
+require('./config/passport'); 
+
 // Setting up port with express js
-const userRoute = require('./routes/user.routes')
+const userRoute = require('./routes/user.routes');
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-   extended: false
-}));
 app.use(cors()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 //app.use(express.static(path.join(__dirname, 'src/app')));
 app.use('/api', userRoute);
 

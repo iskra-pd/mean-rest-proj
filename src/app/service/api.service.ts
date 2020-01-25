@@ -13,8 +13,17 @@ baseUri:string = 'http://localhost:3000/api';
   
   constructor(private http: HttpClient) { }
   
+  
+  //Login
+  userLoin(user){
+	return this.http.post(`${this.baseUri}/login`,user); 
+  }
+  
+  //Logout
+  
+  
   // Get all users
-  getUsers() {
+  getUsers(): Observable<any> {
     return this.http.get(`${this.baseUri}/users`);
   }
 
@@ -23,7 +32,7 @@ baseUri:string = 'http://localhost:3000/api';
     let url = `${this.baseUri}/users/${username}`;
     return this.http.get(url, {headers: this.headers}).pipe(
       map((res: Response) => {
-        return res || {}
+        return res["user"] || {}
       }),
       catchError(this.errorMgmt)
     )
