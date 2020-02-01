@@ -3,7 +3,7 @@
   <h2 style="text-align: center;">Users REST API</h2>
   <hr>  
 <nav class="navbar navbar-light bg-light">
-  <a routerLink="/users" routerLinkActive="active" class="navbar-brand mb-0 h1">Home</a>
+  <a routerLink="/users" routerLinkActive="active" *ngIf="auth.loggedIn" class="navbar-brand mb-0 h1">Home</a>
   <a (click)="logout()" href="#" *ngIf="auth.loggedIn">Logout</a>
 </nav>
   <div class="card">

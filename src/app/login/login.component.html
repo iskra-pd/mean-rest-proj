@@ -3,10 +3,8 @@
 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 	<input type="email" name="userName" id="inputUsername" [(ngModel)]="username" class="form-control mb-4" placeholder="Username" required autofocus>
 	<input type="password" name="userPassword" id="inputPassword" [(ngModel)]="password" class="form-control mb-4" placeholder="Password" required>
-	<div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
+	<div class="mb-3">
+	  <div class="alert alert-danger" *ngIf="error">{{error}}</div>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>	
 </form>

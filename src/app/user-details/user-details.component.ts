@@ -4,6 +4,9 @@ import { ApiService } from './../service/api.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { User } from './../model/User';
 
+/**
+* User details component
+*/
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -18,7 +21,7 @@ export class UserDetailsComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private apiService: ApiService,
     private router: Router
-  ) {this.mainForm();}
+  ) {this.resetForm();}
 
   ngOnInit() {
 	let username = this.actRoute.snapshot.paramMap.get('username');
@@ -26,19 +29,18 @@ export class UserDetailsComponent implements OnInit {
 	this.userForm.disable();
   }
   
-  mainForm() {
+  resetForm() {
     this.userForm = this.fb.group({
       name: ['', []],
       email: ['', []],
       username: ['', []],
     })
   }
-  
-   // Getter to access form control
-  get myForm(){
-    return this.userForm.controls;
-  }
-  
+
+/**
+* Fetch user details for provided username
+* @param {string} username
+*/  
    getUser(username) {
     this.apiService.getUser(username).subscribe(data => {
       this.userForm.setValue({

@@ -4,6 +4,9 @@ const LocalStrategy = require('passport-local');
 
 const  User = require('../models/User');
 
+/**
+* Passport localStrategy
+*/
 passport.use(new LocalStrategy( (username, password, done) => {
 
   User.findOne({ username: username })

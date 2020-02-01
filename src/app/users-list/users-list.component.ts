@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../service/api.service';
 
+/**
+* List of users from the database
+*/
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -18,11 +21,14 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
   }
   
+  /**
+  * Read data from Users model
+  */
   readUsers(){
     this.apiService.getUsers().subscribe((data) => {
 		this.Users = data.users[0];
 		
-		 console.log('Res data:',this.Users[0])
+		 console.log('Res data:',this.Users);
     })    
   }
 
