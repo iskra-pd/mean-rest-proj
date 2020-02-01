@@ -4,14 +4,20 @@ const bodyParser = require('body-parser');
 const userRoute = express.Router();
 const passport  =  require('passport');
 const LocalStrategy  =  require('passport-local').Strategy;
-const auth = require('./auth');
 
-// User model
+/**
+* REST API
+*/
+
 let User = require('../models/User');
 
+/**
+* POST  {username: string, password: string} to /api/login
+* successful response returns format {user:{username:string, token: string}} 
+*/
 userRoute.route('/login').post((req, res,next) => {
   const user = req.body;
-
+ console.log('Login request',req.headers);
   if(!user.username) {
     return res.status(422).json({
       errors: {
@@ -33,20 +39,23 @@ userRoute.route('/login').post((req, res,next) => {
     }
 
     if(passportUser) {
-      const user = passportUser;
-      user.token = passportUser.generateJWT();
-
-      return res.json({ user: user.toAuthJSON() });
+      let token = passportUser.generateJWT();
+	  res.status(201);
+	return res.json({user: passportUser,token: token});
     }
-
-    return res.status(400).info;
+    return res.status(401).json({
+		errors: info
+	});
   })(req, res, next);
 });
 
 
-// Get All Users
+/**
+* GET /api/users
+* success response returns {users:[....]} 
+*/
 userRoute.route('/users').get((req, res) => {
-  User.find({},(error, data) => {
+  User.find({},{hash:0,salt:0},(error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -55,6 +64,11 @@ userRoute.route('/users').get((req, res) => {
   })
 })
 
+/**
+* GET /api/users/:username
+* @param {string} username
+* success response data format is {user:{username: username,name: name,email: email}}
+*/
 // Get single user by username
 userRoute.route('/users/:username').get((req, res) => {
   User.findById(req.params.username, (error, data) => {
